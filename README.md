@@ -20,20 +20,17 @@ A dumb wireframe is provided in the `design.html` file with will help you mix'n'
       1. Make a copy of the `setenv.sh.template` file in the new name of `setenv.sh`
       1. Fill out the `setenv.sh` with **YOUR** details
       1. Source the `setenv.sh` file in the command line with the `source setenv.sh` command. You have to do it from the same terminal where you start main.py later.
-1. To create your database structure, you have 2 options, choose one:
-   1. Using the pre-saved dump data:
-      1. Run the `data/db_schema/01_create_schema.sql` SQL file to create empty tables
-      1. Unzip the `data/dump_1000_shows.zip` file
-      1. Run the unzipped sql files in the following order:
-         1. genres
-         1. shows
-         1. show_genres
-         1. seasons
-         1. episodes
-         1. actors
-         1. show_characters
-   1. Download data dynamically
-      1. Run the `data_inserter.py` Python script to scrape the API and download data dynamically.
+1. To create your database structure follow list below:
+   1. Run the `data/db_schema/01_create_schema.sql` SQL file to create empty tables
+   1. Unzip the `data/dump_1000_shows.zip` file
+   1. Run the unzipped sql files in the following order:
+      1. genres
+      1. shows
+      1. show_genres
+      1. seasons
+      1. episodes
+      1. actors
+      1. show_characters
 1. Run the server with: *`python main.py`*
 1. After you stop the server run: *`deactivate`* in the command line to clean up the variables used
 
