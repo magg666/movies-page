@@ -53,3 +53,9 @@ header input[type="button"]:active {
     background: rgba(150, 150, 150, .25);
     text-shadow: 0 0 4px rgba(255, 255, 255, .5), 0 0 6px rgba(255, 255, 255, .3);
 }
+button:disabled,
+button:disabled:hover{
+    background-color: #e7e7e7;
+    border: #278bc4 solid 2px;
+    color: #278bc4;
+}
