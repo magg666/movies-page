@@ -168,3 +168,5 @@ setenv.ps1
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
+
+info.log
