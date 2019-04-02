@@ -13,7 +13,7 @@ A dumb wireframe is provided in the `design.html` file with will help you mix'n'
 1. Create a _virtualenv_: `virtualenv venv`
 1. Activate the _virtualenv_: `source venv/bin/activate`
 1. Install pip dependencies: `pip install -r requirements.txt`
-1. Create a Postgres database for this project: `sudo -u postgres psql -c "CREATE DATABASE db_name_you_want;"` or `sudo -u postgres createdb db_name_you_want`
+1. Create a Postgres database for this project
 1. Set the environment variables which the code uses to connect to the database. For this you have two ways:
    1. Using the IDE: for example if you use pyCharm, then editing the configuration you can set environment variables. The necesssary ones you can find in `setenv.sh.template`
    1. Set the environment variables from the terminal. For this you can use our prewritten sh file (unix (linux) shell executables file):
@@ -34,8 +34,8 @@ A dumb wireframe is provided in the `design.html` file with will help you mix'n'
          1. show_characters
    1. Download data dynamically
       1. Run the `data_inserter.py` Python script to scrape the API and download data dynamically.
-1. Run the server with: *`python main.py`* or with the run configuration you set up in your IDE
-1. After you stop the server run: *`deactivate`* in the command line to clean up the variables used (you do not need to if you used your IDE to run)
+1. Run the server with: *`python main.py`*
+1. After you stop the server run: *`deactivate`* in the command line to clean up the variables used
 
 ## Database
 

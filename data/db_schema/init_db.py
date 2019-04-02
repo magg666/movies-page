@@ -1,4 +1,4 @@
-from data_manager import get_connection_data, establish_connection
+from db_connection.data_manager import get_connection_data, establish_connection
 import os
 
 
