@@ -29,6 +29,13 @@
         <!-- page specific styling -->
         <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
 
+        <script src="{{ url_for('static', filename='script/main.js') }}" type="module" defer crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='script/shows.js') }}" type="module" defer crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='script/dom.js') }}" type="module" defer crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='script/data_formatter.js') }}" type="module" defer crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='script/communication.js') }}" type="module" defer crossorigin="anonymous"></script>
+
+
     </head>
 
     <body>
@@ -56,13 +63,13 @@
                 </div>
                 <div class="card">
                 {% include "shows_table.html" %}
-                    <ul>
-                        {% for show in shows %}
-                        <li>
-                            <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+{#                    <ul>#}
+{#                        {% for show in shows %}#}
+{#                        <li>#}
+{#                            <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>#}
+{#                        </li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
                 </div>
             </section>
             <footer>
