@@ -1,0 +1,23 @@
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Release year</th>
+        <th>Runtime</th>
+        <th>Genre</th>
+        <th>Rating</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for show in shows %}
+    <tr>
+        <td>{{ show['title'] | title }}</td>
+        <td>{{ show['year'] | string }}</td>
+        <td>{{ show['runtime'] }}</td>
+        <td>{{ show['rating'] }}</td>
+    </tr>
+    {% endfor %}
+
+
+    </tbody>
+</table>
