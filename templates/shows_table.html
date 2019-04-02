@@ -1,3 +1,8 @@
+<div>
+    <button id="shows-pagination-previous" disabled>Previous</button>
+    <button id="shows-pagination-next">Next</button>
+</div>
+
 <table>
     <thead>
     <tr>
@@ -8,16 +13,15 @@
         <th>Rating</th>
     </tr>
     </thead>
-    <tbody>
-    {% for show in shows %}
-    <tr>
-        <td>{{ show['title'] | title }}</td>
-        <td>{{ show['year'] | string }}</td>
-        <td>{{ show['runtime'] }}</td>
-        <td>{{ show['rating'] }}</td>
-    </tr>
-    {% endfor %}
-
-
+    <tbody id="shows-table-body">
+{#    {% for show in all_shows %}#}
+{#        <tr>#}
+{#            <td><a href="/show/{{show['id'] }}">{{ show['title'] | title }}</a></td>#}
+{#            <td>{{ show['year'] | int }}</td>#}
+{#            <td>{{ show['runtime'] }} min.</td>#}
+{#            <td>{{ show['genre_name'] }}</td>#}
+{#            <td>{{ show['rating'] }}</td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
     </tbody>
 </table>
