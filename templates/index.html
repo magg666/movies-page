@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
-        <title>CsED</title>
+    <title>CsED</title>
 
-        <!-- Import Montserrat font -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <!-- Import Montserrat font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <!-- Nomalize.css fixes lot of differences between browsers default styles -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+    <!-- Import Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-        <!-- project wide styling -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/site.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/header.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/footer.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/background.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/button.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/card.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/table.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <!-- Nomalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
 
-        <!-- page specific styling -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+    <!-- project wide styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/site.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/background.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
 
-        <script src="{{ url_for('static', filename='script/main.js') }}" type="module" defer crossorigin="anonymous"></script>
-        <script src="{{ url_for('static', filename='script/shows.js') }}" type="module" defer crossorigin="anonymous"></script>
-        <script src="{{ url_for('static', filename='script/dom.js') }}" type="module" defer crossorigin="anonymous"></script>
-        <script src="{{ url_for('static', filename='script/data_formatter.js') }}" type="module" defer crossorigin="anonymous"></script>
-        <script src="{{ url_for('static', filename='script/communication.js') }}" type="module" defer crossorigin="anonymous"></script>
+    <!-- page specific styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+
+    <script src="{{ url_for('static', filename='script/main.js') }}" type="module" defer
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/shows.js') }}" type="module" defer
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/dom.js') }}" type="module" defer
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/data_formatter.js') }}" type="module" defer
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/communication.js') }}" type="module" defer
+            crossorigin="anonymous"></script>
 
 
-    </head>
+</head>
 
-    <body>
-        <div id="body-wrapper">
-            <header class="clearfix">
-                <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
-                <span id="header-title" class="title">
+<body>
+<div id="body-wrapper">
+    <header class="clearfix">
+        <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
+        <span id="header-title" class="title">
                         Codecool Series DB
                     </span>
-                <div id="header-auth">
-                    <button type="button" id="bt_register">Register</button>
-                    <button type="button" id="bt_login">Login</button>
-                </div>
-            </header>
-            <section>
-                <h1 class="title text-center">Welcome page</h1>
-                <div class="card">
-                    <h2>Welcome TV show lovers!</h2>
-                    <p>This great site is happy to bring you your favourite TV show's <i>details</i>.</p>
-                    <p></p>
-                    <p>Okay, actually this is a designed dumb page without any logic.</p>
-                    <p>You can find a navigational element, the so called "breadcrumb" above the page's title. Use it for in-depth
-                        navigation.
-                    </p>
-                </div>
-                <div class="card">
-                {% include "shows_table.html" %}
-{#                    <ul>#}
-{#                        {% for show in shows %}#}
-{#                        <li>#}
-{#                            <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>#}
-{#                        </li>#}
-{#                        {% endfor %}#}
-{#                    </ul>#}
-                </div>
-            </section>
-            <footer>
-                Copyright, bla-bla
-            </footer>
+        <div id="header-auth">
+            <button type="button" id="bt_register">Register</button>
+            <button type="button" id="bt_login">Login</button>
         </div>
-        <div class="background">
-            <div class="dark-blue-layer"></div>
-            <div class="light-blue-layer"></div>
+    </header>
+    <section>
+        <h1 class="title text-center">Welcome page</h1>
+        <div class="card">
+            <h2>Welcome TV show lovers!</h2>
+            <p>This great site is happy to bring you your favourite TV show's <i>details</i>.</p>
+            <p></p>
+            <p>Okay, actually this is a designed dumb page without any logic.</p>
+            <p>You can find a navigational element, the so called "breadcrumb" above the page's title. Use it for
+                in-depth
+                navigation.
+            </p>
         </div>
-    </body>
+        {% block content %}
+
+        {% endblock %}
+    </section>
+    <footer>
+        Copyright, bla-bla
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
+</body>
 </html>
