@@ -59,3 +59,23 @@ button:disabled:hover{
     border: #278bc4 solid 2px;
     color: #278bc4;
 }
+
+#shows-pagination-previous,
+#shows-pagination-next {
+    width: 100px;
+}
+
+table button{
+    color: white;
+
+
+}
+table button,
+table button:hover,
+table button:active{
+    border: none;
+    font-size: 20px;
+    padding: 4px 12px;
+    /*width: 60px;*/
+
+}
