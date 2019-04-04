@@ -9,12 +9,16 @@ let showsParameters = {
     forward: 15,
     rewind: -15,
     offsetForShows: 0,
+    sortBy: 'rating',
+    sortOrder: 'DESC'
 };
 
 function displayShowsTable(way=0) {
     showsParameters.offsetForShows += way;
     let pageNumber = {
-        'number': showsParameters.offsetForShows
+        'number': showsParameters.offsetForShows,
+        'sort_by': showsParameters.sortBy,
+        'order': showsParameters.sortOrder
     };
     postData('/page', pageNumber, createShowsTable);
     return showsParameters.offsetForShows
@@ -57,6 +61,8 @@ function checkDisplayingPaginationButtons() {
 function createShowsTable(data) {
     let showsTableBody = document.getElementById('shows-table-body');
     let formattedShows = formatShowsData(data);
+    let showIdIndex = 0;
+
     showsParameters.allShows = formattedShows.countedShows;
     checkDisplayingPaginationButtons();
 
@@ -67,9 +73,9 @@ function createShowsTable(data) {
         let cell = '';
         for (let i = 1; i < show.length; i++) {
             if (i === 1) {
-                cell = `<td><a href="/show/${show[0]}">${show[i]}</a></td>`;
+                cell = `<td class="shows-cell${i}"><a href="/show/${show[showIdIndex]}">${show[i]}</a></td>`;
             } else {
-                cell = `<td>${show[i]}</td>`
+                cell = `<td class="shows-cell${i}">${show[i]}</td>`
             }
             allCells += cell
         }
@@ -79,7 +85,32 @@ function createShowsTable(data) {
     }
 }
 
+//-------- sorting-----
+
+
+function addSorting(){
+    let sortButtons = document.querySelectorAll('.sort');
+    for(let button of sortButtons){
+        button.addEventListener('click', function () {
+            showsParameters.offsetForShows = 0;
+            showsParameters.sortBy = button.parentElement.dataset.sortBy;
+            defineSortingOrder(button);
+            displayShowsTable()
+        })
+    }
+}
+
+function defineSortingOrder(button) {
+    if(button.innerHTML.trim() === '<i class="fas fa-sort-down"></i>'){
+        showsParameters.sortOrder = 'DESC'
+    } else if(button.innerHTML.trim() === '<i class="fas fa-sort-up"></i>'){
+        showsParameters.sortOrder = 'ASC'
+    } return showsParameters.sortOrder
+}
+
 function displayShowsPage() {
     displayShowsTable();
     addPagination();
+    addSorting()
+
 }
