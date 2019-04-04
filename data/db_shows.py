@@ -6,25 +6,52 @@ from db_connection import db_connect as con
 
 
 @con.connection_handler
-def get_shows(cursor, number):
+def get_shows(cursor, number, sort_by, order):
     sql_str = """
     SELECT s.id,
        title,
        date_part('year', year) AS year,
        runtime,
        CAST(rating AS float),
-       array_agg(g.name)       AS genre_name
+       string_agg(g.name, ' ')       AS genre_name,
+       homepage,
+       trailer
     FROM shows s
        LEFT JOIN show_genres sg on s.id = sg.show_id
        LEFT JOIN genres g on sg.genre_id = g.id
     GROUP BY s.id
-    ORDER BY rating DESC 
-    LIMIT 15 OFFSET '{0}'
+    ORDER BY {0} {1} 
+    LIMIT 15 OFFSET {2}
     
-    """.format(number)
-    cursor.execute(sql_str, {'number': int(number)})
+    """.format(sort_by, order, number)
+    cursor.execute(sql_str, {'sort_by': sort_by,
+                             'order': order,
+                             'number': int(number)})
     all_shows = cursor.fetchall()
     return all_shows
+
+
+@con.connection_handler
+def get_one_show(cursor, show_id):
+    sql_str = """
+    SELECT s.id,
+       s.title,
+       date_part('year', year) AS year,
+       s.runtime,
+       s.trailer,
+       s.homepage,
+       s.rating,
+       s.overview,
+       string_agg(g.name, ', ') as genres
+    FROM shows s
+       LEFT JOIN show_genres sg on s.id = sg.show_id
+       LEFT JOIN genres g on sg.genre_id = g.id
+    WHERE s.id = %(show_id)s
+    GROUP BY s.id
+    """
+    cursor.execute(sql_str, {'show_id': show_id})
+    show_data = cursor.fetchone()
+    return show_data
 
 
 @con.connection_handler
