@@ -1,23 +1,33 @@
 from flask import Flask, render_template, request, jsonify
+
 from data_manager import shows as shows
+from data_manager import actors as actors
+from data_manager import seasons as seasons
 
 app = Flask('codecool_series')
 
 
 @app.route('/')
 def index():
-    # all_shows = shows.get_ordered(number=0)
-    return render_template('index.html')
+    return render_template('shows_table.html')
 
 
 @app.route('/page', methods=['POST'])
 def shows_pages():
-    json_number = request.get_json()
-    number = json_number['number']
-    all_shows = shows.get_ordered(number)
+    json_data = request.get_json()
+    all_shows = shows.get_ordered(json_data)
     counted_shows = shows.count_all()
     return jsonify({'shows': all_shows,
                     'counted_shows': counted_shows})
+
+
+@app.route('/show/<int:show_id>')
+def show(show_id):
+    one_show_data = {'one_show': shows.get_one(show_id),
+                     'actors': actors.get_for_show(show_id),
+                     'seasons': seasons.get_for_show(show_id)}
+    return render_template('one_show.html',
+                           **one_show_data)
 
 
 @app.route('/design')
