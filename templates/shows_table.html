@@ -1,27 +1,45 @@
-<div>
-    <button id="shows-pagination-previous" disabled>Previous</button>
-    <button id="shows-pagination-next">Next</button>
-</div>
+{% extends 'index.html' %}
+{% block content %}
+<div class="card">
+    <div>
+        <button id="shows-pagination-previous" disabled>Previous</button>
+        <button id="shows-pagination-next">Next</button>
+    </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Release year</th>
-        <th>Runtime</th>
-        <th>Genre</th>
-        <th>Rating</th>
-    </tr>
-    </thead>
-    <tbody id="shows-table-body">
-{#    {% for show in all_shows %}#}
-{#        <tr>#}
-{#            <td><a href="/show/{{show['id'] }}">{{ show['title'] | title }}</a></td>#}
-{#            <td>{{ show['year'] | int }}</td>#}
-{#            <td>{{ show['runtime'] }} min.</td>#}
-{#            <td>{{ show['genre_name'] }}</td>#}
-{#            <td>{{ show['rating'] }}</td>#}
-{#        </tr>#}
-{#    {% endfor %}#}
-    </tbody>
-</table>
+    <table>
+        <thead>
+        <tr>
+            <th data-sort-by="title">
+                <button class="sort">
+                    <i class="fas fa-sort-up"></i>
+                </button>
+                Title
+                <button class="sort">
+                    <i class="fas fa-sort-down"></i></button>
+            </th>
+            <th data-sort-by="year">
+                <button class="sort"><i class="fas fa-sort-up"></i></button>
+                Release year
+                <button class="sort"><i class="fas fa-sort-down"></i></button>
+            </th>
+            <th data-sort-by="runtime">
+                <button class="sort"><i class="fas fa-sort-up"></i></button>
+                Runtime
+                <button class="sort"><i class="fas fa-sort-down"></i></button>
+            </th>
+            <th>Genre</th>
+            <th data-sort-by="rating">
+                <button class="sort"><i class="fas fa-sort-up"></i></button>
+                Rating
+                <button class="sort"><i class="fas fa-sort-down"></i></button>
+            </th>
+            <th>HomePage</th>
+            <th>Trailer</th>
+        </tr>
+        </thead>
+        <tbody id="shows-table-body">
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
