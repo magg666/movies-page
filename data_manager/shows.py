@@ -6,14 +6,23 @@ def count_all():
     return counted_shows['show_amount']
 
 
-def get_ordered(number):
-    shows_data = shows_manager.get_shows(number)
+def get_ordered(json_data):
+    number = json_data['number']
+    sort_by = json_data['sort_by']
+    order = json_data['order']
+
+    shows_data = shows_manager.get_shows(number, sort_by, order)
     for data in shows_data:
-        if data['genre_name'][0] is not None:
-            data['genre_name'] = ", ".join(data['genre_name'][0:3])
-        else:
-            data['genre_name'] = None
+        if data['genre_name'] is not None:
+            data['genre_name'] = ", ".join((data['genre_name'].split(' '))[0:3])
 
     return shows_data
 
+
+def get_one(show_id):
+    one_show = shows_manager.get_one_show(show_id)
+
+    if one_show['trailer']:
+        one_show['trailer'] = one_show['trailer'].replace('watch?v=', 'embed/')
+    return one_show
 
