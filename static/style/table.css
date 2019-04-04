@@ -14,13 +14,14 @@ table th {
 }
 
 table td {
-    font-size: 13px;
+    font-size: 16px;
 }
 
 table th,
 table td {
     margin: 0;
-    padding: 6px;
+    padding: 10px;
+    border: lightgrey 1px solid;
 }
 
 table tr:nth-child(even) {
@@ -30,3 +31,23 @@ table tr:nth-child(even) {
 table th.action-column {
     background: rgb(203, 75, 70);
 }
+
+
+
+.shows-cell1,
+.shows-cell4,
+.shows-cell6{
+    text-align: left;
+    width: 15%;
+}
+
+
+.shows-cell2,
+.shows-cell3,
+.shows-cell5 {
+    text-align: right;
+    width: 12%;
+}
+
+
+
