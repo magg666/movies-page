@@ -13,7 +13,7 @@ def get_shows(cursor, number, sort_by, order):
        date_part('year', year) AS year,
        runtime,
        CAST(rating AS float),
-       string_agg(g.name, ' ')       AS genre_name,
+       string_agg(DISTINCT g.name, ' ')       AS genre_name,
        homepage,
        trailer
     FROM shows s
@@ -42,7 +42,7 @@ def get_one_show(cursor, show_id):
        s.homepage,
        s.rating,
        s.overview,
-       string_agg(g.name, ', ') as genres
+       string_agg(DISTINCT g.name, ', ') as genres
     FROM shows s
        LEFT JOIN show_genres sg on s.id = sg.show_id
        LEFT JOIN genres g on sg.genre_id = g.id
@@ -52,6 +52,18 @@ def get_one_show(cursor, show_id):
     cursor.execute(sql_str, {'show_id': show_id})
     show_data = cursor.fetchone()
     return show_data
+
+
+@con.connection_handler
+def get_show_title_by_season(cursor, season_id):
+    sql_str = """
+    SELECT shows.title FROM shows
+    JOIN seasons s on shows.id = s.show_id
+    WHERE s.id = %(season_id)s
+    """
+    cursor.execute(sql_str, {'season_id': season_id})
+    show_title = cursor.fetchone()
+    return show_title
 
 
 @con.connection_handler
