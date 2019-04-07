@@ -2,15 +2,19 @@ import {displayShowsPage} from "./shows.js";
 import {addEventListenerToEpisodeButton} from "./episodes.js";
 import {sendErrorLogsToServer} from "./communication.js";
 import {newDataActors} from "./actors.js";
+import {showAddActorModal} from "./add_actor.js";
+import {prepareSelectGenre} from "./genres.js";
 
 function main() {
-
+    showAddActorModal();
     if (window.location.pathname === "/") {
         displayShowsPage();
     } else if (window.location.pathname.startsWith("/show/")) {
         addEventListenerToEpisodeButton();
     } else if (window.location.pathname.startsWith("/actors")) {
         newDataActors()
+    } else if (window.location.pathname.startsWith("/choose-genre")){
+        prepareSelectGenre()
     }
 
 }
