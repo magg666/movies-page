@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/navigation_bar.css') }}">
 
     <!-- page specific styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
@@ -42,6 +43,10 @@
     <script src="{{ url_for('static', filename='script/data_formatter.js') }}" type="module" defer
             crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='script/communication.js') }}" type="module" defer
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/episodes.js') }}" type="module" defer
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/actors.js') }}" type="module" defer
             crossorigin="anonymous"></script>
 
 
@@ -58,7 +63,9 @@
             <button type="button" id="bt_register">Register</button>
             <button type="button" id="bt_login">Login</button>
         </div>
+
     </header>
+    {% include 'navigation_bar.html' %}
     <section>
         <h1 class="title text-center">Welcome page</h1>
         <div class="card">
@@ -75,6 +82,7 @@
 
         {% endblock %}
     </section>
+<div class="info-modal-container hidden" id="small-modal"></div>
     <footer>
         Copyright, bla-bla
     </footer>
