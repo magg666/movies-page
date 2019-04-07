@@ -25,7 +25,10 @@ function sortActorsData(data) {
         }
     }
     sortable.sort(function (a, b) {
-        return a['name'].localeCompare(b['name']);
+        if(a['name'] && b['name']){
+            return a['name'].localeCompare(b['name']);
+        }
+
 
     }); actorsParameters.allActors = sortable.length;
         return sortable
