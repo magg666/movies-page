@@ -1,4 +1,4 @@
-export {formatShowsData}
+export {formatShowsData, formatDataOfEpisodes}
 
 function formatShowsData(data) {
     return {
@@ -15,4 +15,19 @@ function formatShowsData(data) {
             return [id, title, year, runtime, genres, rating, homepage, trailer]
         })
     };
+}
+
+function formatDataOfEpisodes(data) {
+    let seasonIndicator = Object.keys(data)[0];
+    return {
+        episodes: data[seasonIndicator].episodes
+            .map( (episode) => {
+                if(episode['overview'] === null){
+                    episode['overview'] = "There should be some overview, but there is not. Maybe you'll write one?".fontcolor('red');
+                }return episode
+            }),
+        show_title: data[seasonIndicator].show_title,
+        season_title: data[seasonIndicator].season_title
+    };
+
 }
