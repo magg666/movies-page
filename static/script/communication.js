@@ -1,4 +1,5 @@
-export {getData, postData}
+export {getData, postData, sendErrorLogsToServer}
+import {openModal} from "./dom.js";
 
 function getData(link, callback) {
     fetch(link, {
@@ -6,8 +7,10 @@ function getData(link, callback) {
     })
         .then(response => response.json())
         .then(json_response => callback(json_response))
-//        .catch(error => sendErrorLogsToServer(error.message + error.stack))
-        .catch(error => console.log(error))
+        .catch(error => {
+            openModal('user', 'Sorry, this page is under work. Try again later');
+            sendErrorLogsToServer(error.message + error.stack);
+        })
 }
 
 function postData(link, data, callback) {
@@ -20,8 +23,10 @@ function postData(link, data, callback) {
     })
         .then(response => response.json())
         .then(json_response => callback(json_response))
-  //      .catch(error => sendErrorLogsToServer(error.message + error.stack))
-        .catch(error => console.log(error))
+        .catch(error => {
+            openModal('user', 'Sorry, this page is under work. Try again later');
+            sendErrorLogsToServer(error.message + error.stack);
+        })
 }
 
 // proste wysyłanie daych na server - logi błędów
