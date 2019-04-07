@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify
 
 from log import logging_rules as log
 from data_manager import shows as shows
 from data_manager import actors as actors
 from data_manager import seasons as seasons
 from data_manager import episodes as episodes
+from data_manager import genre as genre
 
 app = Flask('codecool_series')
 
@@ -94,15 +95,37 @@ def one_actor(actor_id):
 
 @app.route('/add-actor', methods=['POST'])
 def add_actor():
-    pass
-    # try:
-    #     actor_data = request.get_json()
-    #     if(not actors.is_verified(actor_data)):
-    #         return jsonify({'state': 'duplicate'})
-    #     if(actors.add_new_actor(actor_data)):
-    #         return jsonify({'state': 'success'})
-    # except actors.SavingProblem:
-    #     return jsonify({'state': 'error'})
+    try:
+        actor_data = request.get_json()
+        if not actors.is_data_valid(actor_data):
+            return jsonify({'state': 'wrong'})
+        if actors.is_existing(actor_data):
+            return jsonify({'state': 'duplicate'})
+
+        actors.add_new(actor_data)
+        return jsonify({'state': 'success'})
+    except actors.SavingProblem:
+        return jsonify({'state': 'error'})
+
+
+@app.route('/choose-genre', methods=['GET'])
+def show_genres():
+    genres = genre.get_all()
+    return render_template('select_genre.html',
+                           genres=genres)
+
+
+@app.route('/choose-genre', methods=['POST'])
+def search_by_genre():
+    genre_id = request.get_json()
+    try:
+        shows_by_genre = genre.get_shows_by(genre_id)
+        return jsonify({'state': shows_by_genre})
+    except genre.ReadingProblem:
+        return jsonify({'state': 'error'})
+
+
+
 
 
 @app.route('/design')
