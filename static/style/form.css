@@ -14,15 +14,29 @@
 }
 
 form input,
-form select {
+select,
+form textarea{
     padding: 4px 6px;
-
+    width: 80%;
     cursor: pointer;
 
     border: 1px solid #4c97ca;
     -webkit-border-radius: 0;
             border-radius: 2px;
     background: #fff;
-
     -webkit-appearance: none;
+    font-size: 20px;
 }
+form input {
+    min-height: 30px;
+}
+form textarea {
+    min-height: 80px;
+    resize: none;
+}
+
+.error {
+    background-color: rgba(255, 127, 130, 0.3);
+}
+
+
