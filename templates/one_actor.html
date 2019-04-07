@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <div class="card" id="one-actor" data-actor-id="{{ actor_id }}">
+    {% if actor %}
+        <div class="row">
+            <div class="col col-third">
+                <p class="big-letters">{{ actor['name'] }}</p>
+                <p class="small grayed">{{ actor['birthday'] }} - {{ actor['death'] }}</p>
+            </div>
+
+            <div class="col col-twothird">
+                <p class="justify">{{ actor['biography'] }}</p>
+            </div>
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Shows</th>
+                    <th>Role</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for role, show in actor['show_role'].items() %}
+                <tr>
+                    <td>{{ show }}</td>
+                    <td>{{ role }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+    <span>{{ message }}</span>
+    <a href="{{ url_for('index') }}">Go home...</a>
+    {% endif %}
+    </div>
+
+{% endblock %}
