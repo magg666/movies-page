@@ -13,6 +13,7 @@
     background-color: rgba(0, 0, 0, 0.3)
 
 }
+
 .episodes-modal-body {
     width: 80%;
     height: 80%;
@@ -21,21 +22,35 @@
     text-align: left;
 
 }
+.actor-modal-body{
+    width: 30%;
+    height: 60%;
+    margin: 80px auto auto auto;
+    padding: 30px;
+    text-align: left;
+}
+
+
 .episodes-modal-message {
     height: 85%;
     overflow-y: scroll;
     padding: 30px;
 }
 
+
+.actor-modal-close,
 .episodes-modal-close {
     float: right;
     font-weight: bolder;
     font-size: 20px;
 }
+.actor-modal-title,
 .episodes-modal-title {
     font-size: 20px;
     letter-spacing: 2px;
 }
+
+
 
 
 .info-modal-container {
