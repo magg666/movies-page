@@ -1,12 +1,36 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 
+from log import logging_rules as log
 from data_manager import shows as shows
 from data_manager import actors as actors
 from data_manager import seasons as seasons
+from data_manager import episodes as episodes
 
 app = Flask('codecool_series')
 
 
+# errors handling
+@app.errorhandler(405)
+def method_not_allowed(error):
+    return render_template('error.html',
+                           error=405,
+                           error_message='Method not allowed')
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('error.html',
+                           error=404,
+                           error_message="You will find nothing here. Go home...")
+
+
+@app.route('/error', methods=['POST'])
+def log_js_errors():
+    error = request.get_json()
+    log.logger.critical('%s', error)
+
+
+# page routing
 @app.route('/')
 def index():
     return render_template('shows_table.html')
@@ -14,11 +38,14 @@ def index():
 
 @app.route('/page', methods=['POST'])
 def shows_pages():
-    json_data = request.get_json()
-    all_shows = shows.get_ordered(json_data)
-    counted_shows = shows.count_all()
-    return jsonify({'shows': all_shows,
-                    'counted_shows': counted_shows})
+    try:
+        json_data = request.get_json()
+        all_shows = shows.get_ordered(json_data)
+        counted_shows = shows.count_all()
+        return jsonify({'shows': all_shows,
+                        'counted_shows': counted_shows})
+    except shows.WrongSort:
+        return jsonify({'shows': 'error'})
 
 
 @app.route('/show/<int:show_id>')
@@ -28,6 +55,54 @@ def show(show_id):
                      'seasons': seasons.get_for_show(show_id)}
     return render_template('one_show.html',
                            **one_show_data)
+
+
+@app.route('/season/<int:season_id>')
+def season(season_id):
+    try:
+        season_data = {'show_title': shows.get_title_by_season_id(season_id),
+                       'season_title': seasons.get_title(season_id),
+                       'episodes': episodes.get_all_for_season(season_id)}
+        return jsonify({'season' + str(season_id): season_data})
+    except episodes.ReadingProblem:
+        return jsonify({'state': 'error'})
+
+
+@app.route('/actors')
+def top_actors():
+    return render_template('actors.html')
+
+
+@app.route('/actors-list')
+def sorted_actors():
+    all_actors = actors.get_all_with_shows()
+    return jsonify({'actors': all_actors})
+
+
+@app.route('/actor/<int:actor_id>')
+def one_actor(actor_id):
+    try:
+        one_actor_data = actors.get_one(actor_id)
+        return render_template('one_actor.html',
+                               actor=one_actor_data,
+                               actor_id=actor_id)
+    except actors.ReadingProblem:
+        message = 'This actor is currently being updated or/and surgically modifying.'
+        return render_template('one_actor.html',
+                               message=message)
+
+
+@app.route('/add-actor', methods=['POST'])
+def add_actor():
+    pass
+    # try:
+    #     actor_data = request.get_json()
+    #     if(not actors.is_verified(actor_data)):
+    #         return jsonify({'state': 'duplicate'})
+    #     if(actors.add_new_actor(actor_data)):
+    #         return jsonify({'state': 'success'})
+    # except actors.SavingProblem:
+    #     return jsonify({'state': 'error'})
 
 
 @app.route('/design')
