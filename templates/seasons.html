@@ -1,14 +1,15 @@
 <div class="card">
-{% for season in seasons %}
-<div>
-    <p>Number: {{ season['season_number'] }}
-        <span class="separator">|</span>{{ season['title'] }}</p>
-    <div>
-        <p>{{ season['overview'] }}</p>
-    </div>
+    {% for season in seasons %}
+        <div>
+            <p>Number: {{ season['season_number'] }}
+                <span class="separator">|</span>{{ season['title'] }}</p>
+            <div>
+                <p>{{ season['overview'] }}</p>
+            </div>
 
-    <button data-season-id="{{ season['id']}}">Show episodes</button>
-</div>
-    <hr class="line">
+            <button class="episodes" data-season-id="{{ season['id'] }}">Show episodes</button>
+        </div>
+        <hr class="line">
     {% endfor %}
 </div>
+<div id="episodes-modal-container" class="modal-container"></div>
