@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="card">
+            <label> Choose genre
+                <select id="choose-genre">
+                    <option value="-1">Choose from list below</option>
+                    {% for genre in genres %}
+                        <option value="{{ genre['id'] }}">{{ genre['name'] }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+    <div >
+        <table id="search-results"></table>
+    </div>
+    </div>
+
+{% endblock %}
