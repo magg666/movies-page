@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="card">
+<table>
+    <thead>
+    <tr>
+        <th>Title of episode</th>
+        <th>Number of episode</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for episode in episodes %}
+    <tr>
+        <td><a href="/episode-detailed-view/{{ episode['id'] }}">{{ episode['title'] }}</a></td>
+        <td>{{ episode['episode_number'] }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}
