@@ -1,15 +1,37 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 
 from data import queries
 from data_manager import genres as genre
+from data_manager import shows as shows
+from data_manager import actors as actors
+from data_manager import seasons as seasons
+
 
 app = Flask('codecool_series')
 
 
 @app.route('/')
 def index():
-    shows = queries.get_shows()
-    return render_template('index.html', shows=shows)
+    all_shows = queries.get_shows()
+    return render_template('index.html', shows=all_shows)
+
+
+@app.route('/tv-show/<int:show_id>')
+def show_show(show_id):
+    one_show_data = {'one_show': shows.get_one(show_id),
+                     'actors': actors.get_for_show(show_id),
+                     'seasons': seasons.get_for_show(show_id)}
+    return render_template('one_show.html',
+                           **one_show_data)
+
+
+@app.route('/season-episodes/<int:season_id>')
+def show_episodes_for_season(season_id):
+    try:
+        episodes = seasons.get_all_episodes_for_season(season_id)
+        return render_template('episodes.html', episodes=episodes)
+    except seasons.ReadingProblem:
+        return redirect('/') # Here should be some info for user that page is broken
 
 
 @app.route('/choose-genre', methods=['GET'])
@@ -27,7 +49,6 @@ def search_by_genre():
         return jsonify({'state': shows_by_genre})
     except genre.ReadingProblem:
         return jsonify({'state': 'error'})
-
 
 
 @app.route('/design')
