@@ -1,0 +1,14 @@
+<div class="card">
+    {% for season in seasons %}
+        <div>
+            <p>Number: {{ season['season_number'] }}
+                <span class="separator">|</span>{{ season['title'] }}</p>
+            <div>
+                <p>{{ season['overview'] }}</p>
+            </div>
+
+            <a href="/season-episodes/{{ season['id'] }}"><button class="episodes">Show episodes</button></a>
+        </div>
+        <hr class="line">
+    {% endfor %}
+</div>
