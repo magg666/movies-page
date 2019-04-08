@@ -1,4 +1,3 @@
-from db_connection import data_manager
 from db_connection import db_connect as con
 
 
