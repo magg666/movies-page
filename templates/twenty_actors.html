@@ -12,7 +12,7 @@
         <tbody>
         {% for actor in actors_with_shows %}
         <tr>
-            <td>{{ actor['name'] }}</td>
+            <td><a class="actor" data-actor-id="{{ actor['id']}}" href="#">{{ actor['name'] }}</a></td>
             <td>{{ actor['string_agg'] }}</td>
         </tr>
         {% endfor %}
@@ -20,4 +20,7 @@
         </tbody>
     </table>
 </div>
+ <div id="actor-details-modal" class="modal-container">
+
+ </div>
 {% endblock %}

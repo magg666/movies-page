@@ -122,3 +122,10 @@ def get_twenty_with_shows():
         raise ReadingProblem
 
 
+def get_shows_for_actor(actor_id):
+    try:
+        return actors_manager.get_shows_for_actor(actor_id)
+    except Exception as err:
+        log.logger.error('%s', err)
+        log.logging.exception(err)
+        raise ReadingProblem

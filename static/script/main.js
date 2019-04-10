@@ -4,6 +4,7 @@ import {sendErrorLogsToServer} from "./communication.js";
 import {newDataActors} from "./actors.js";
 import {showAddActorModal} from "./add_actor.js";
 import {prepareSelectGenre} from "./genres.js";
+import {addEventListenerToActor} from "./actors.js";
 
 function main() {
     showAddActorModal();
@@ -15,6 +16,8 @@ function main() {
         newDataActors()
     } else if (window.location.pathname.startsWith("/choose-genre")){
         prepareSelectGenre()
+    } else if (window.location.pathname.startsWith("/20-actors")){
+        addEventListenerToActor()
     }
 
 }

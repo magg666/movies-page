@@ -1,7 +1,7 @@
-import {getData} from "./communication.js";
+import {getData, postData} from "./communication.js";
 import {openModal} from "./dom.js";
 
-export {newDataActors}
+export {newDataActors, addEventListenerToActor}
 
 let actorsParameters = {
     allActors: '',
@@ -25,16 +25,18 @@ function sortActorsData(data) {
         }
     }
     sortable.sort(function (a, b) {
-        if(a['name'] && b['name']){
+        if (a['name'] && b['name']) {
             return a['name'].localeCompare(b['name']);
         }
 
 
-    }); actorsParameters.allActors = sortable.length;
-        return sortable
+    });
+    actorsParameters.allActors = sortable.length;
+    return sortable
 }
+
 // b) cutting to 20 from sorted data
-function prepareActorsData(data){
+function prepareActorsData(data) {
     data = sortActorsData(data);
     let newData = data.slice(actorsParameters.startIndex, actorsParameters.endIndex);
     createActorsTable(newData)
@@ -48,14 +50,14 @@ function getActorsData() {
 
 // ----------------
 
-function displayActorsTable(way=0) {
+function displayActorsTable(way = 0) {
     actorsParameters.startIndex += way;
     actorsParameters.endIndex += way;
     getActorsData();
 }
 
 function newDataActors() {
-    displayActorsTable( 0);
+    displayActorsTable(0);
     addActorPagination();
 }
 
@@ -84,12 +86,13 @@ function createActorsTable(data) {
     }
 
 }
+
 // pagination
 function addActorPagination() {
     let nextButton = document.getElementById('actors-pagination-next');
     let previousButton = document.getElementById('actors-pagination-previous');
 
-    nextButton.addEventListener('click', function (){
+    nextButton.addEventListener('click', function () {
         displayActorsTable(actorsParameters.forward)
     });
     previousButton.addEventListener('click', function () {
@@ -111,12 +114,68 @@ function checkDisplayingPaginationButtons() {
 
     previousButton.disabled = false;
     nextButton.disabled = false;
-    if(cannotRewind()){
+    if (cannotRewind()) {
         previousButton.disabled = true
     }
-    if(cannotForward()){
+    if (cannotForward()) {
         nextButton.disabled = true
     }
 }
 
 
+//-----
+
+function getShowsForActor(actor) {
+    let actorId = actor.dataset.actorId;
+    postData(`/actor-info/${actorId}`, actorId, showActorsWithShows)
+}
+
+function showActorsWithShows(responseData) {
+    if(responseData['shows'] === []){
+        openModal('user', "No actor's info")
+    }else{
+        createModalWithShowsOfActor(responseData['shows'])
+    }
+
+}
+
+function createModalWithShowsOfActor(data) {
+    let modalContainer = document.getElementById('actor-details-modal');
+    modalContainer.classList.add('visible');
+    modalContainer.innerHTML = "";
+    let allOfShows ='';
+    for(let show of data){
+        let row = `<li><a href="/show-page/${show['id']}">${show['title']}</a></li>`;
+        allOfShows += row
+    }
+
+    let actorModal = `
+   <div class="actor-modal-body card">
+        <div class="actor-modal-title">
+            <button class="actor-modal-close" id="close-actor"><span>&times;</span></button> 
+        </div>          
+            <hr class="line">  
+        <div class="episodes-modal-message">
+           <ul>${allOfShows}</ul> 
+        </div>
+    </div>`;
+    modalContainer.insertAdjacentHTML("beforeend", actorModal);
+    addHidingModal(modalContainer)
+}
+
+function addEventListenerToActor() {
+    let allActorsLinks = document.querySelectorAll('.actor');
+    for(let actor of allActorsLinks){
+        actor.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            getShowsForActor(actor)
+        })
+    }
+}
+
+function addHidingModal(modal) {
+    let closeButton = document.getElementById('close-actor');
+    closeButton.addEventListener('click', function () {
+        modal.classList.remove('visible')
+    })
+}

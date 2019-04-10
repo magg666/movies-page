@@ -92,13 +92,27 @@ def delete_actor(cursor, actor_id):
 @con.connection_handler
 def get_twenty_actors_with_shows(cursor):
     sql_str = """
-    SELECT a.name, string_agg(DISTINCT s.title, ' | ') FROM actors a
+    SELECT a.id, a.name, string_agg(DISTINCT s.title, ' | ') FROM actors a
     LEFT JOIN show_characters sc on a.id = sc.actor_id
     LEFT JOIN shows s on sc.show_id = s.id
-    GROUP BY a.name
+    GROUP BY a.id, a.name
     ORDER BY a.name ASC
     LIMIT 20
     """
     cursor.execute(sql_str)
     all_actors_with_shows = cursor.fetchall()
     return all_actors_with_shows
+
+
+@con.connection_handler
+def get_shows_for_actor(cursor, actor_id):
+    sql_str = """
+    SELECT s.id, s.title FROM shows s
+    JOIN show_characters sc on s.id = sc.show_id
+    JOIN actors a on sc.actor_id = a.id
+    WHERE a.id = %(actor_id)s
+    
+    """
+    cursor.execute(sql_str, {'actor_id': actor_id})
+    shows_for_actor = cursor.fetchall()
+    return shows_for_actor
