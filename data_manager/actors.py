@@ -111,3 +111,14 @@ def add_new(actor_data):
                                                                                                           **actor_data))
         log.logging.exception(err)
         raise SavingProblem
+
+
+def get_twenty_with_shows():
+    try:
+        return actors_manager.get_twenty_actors_with_shows()
+    except Exception as err:
+        log.logger.error('%s', err)
+        log.logging.exception(err)
+        raise ReadingProblem
+
+

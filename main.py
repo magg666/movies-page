@@ -125,7 +125,15 @@ def search_by_genre():
         return jsonify({'state': 'error'})
 
 
-
+@app.route('/20-actors')
+def show_actors_with_shows():
+    try:
+        actors_with_shows = actors.get_twenty_with_shows()
+        return render_template('twenty_actors.html',
+                               actors_with_shows=actors_with_shows)
+    except actors.ReadingProblem:
+        return render_template('error.html',
+                               message='Sorry')
 
 
 @app.route('/design')

@@ -87,3 +87,18 @@ def delete_actor(cursor, actor_id):
     cursor.execute(sql_str, {'actor_id': actor_id})
     deleted_name = cursor.fetchone()
     return deleted_name
+
+
+@con.connection_handler
+def get_twenty_actors_with_shows(cursor):
+    sql_str = """
+    SELECT a.name, string_agg(DISTINCT s.title, ' | ') FROM actors a
+    LEFT JOIN show_characters sc on a.id = sc.actor_id
+    LEFT JOIN shows s on sc.show_id = s.id
+    GROUP BY a.name
+    ORDER BY a.name ASC
+    LIMIT 20
+    """
+    cursor.execute(sql_str)
+    all_actors_with_shows = cursor.fetchall()
+    return all_actors_with_shows
