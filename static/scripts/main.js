@@ -5,6 +5,8 @@ import {sendErrorLogsToServer} from "./communication.js";
 function main() {
     if (window.location.pathname.startsWith("/choose-genre")) {
         prepareSelectGenre()
+    } else if (window.location.pathname.startsWith("/actor")) {
+
     }
 
 }

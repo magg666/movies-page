@@ -51,6 +51,18 @@ def search_by_genre():
         return jsonify({'state': 'error'})
 
 
+@app.route('/actor/<int:actor_id>')
+def show_actor_detail(actor_id):
+    try:
+        one_actor = actors.get_one(actor_id)
+        return render_template('one_actor.html',
+                               one_actor=one_actor)
+    except actors.ReadingProblem:
+        return redirect('/')
+
+
+
+
 @app.route('/design')
 def design():
     return render_template('design.html')

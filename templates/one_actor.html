@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="card">
+<div class="col-third">
+    <p id="actor-name" data-actor-id="{{ one_actor['id'] }}">{{ one_actor['name'] }}</p>
+    <p>{{ one_actor['birthday'] }} - {{ one_actor['death'] }}</p>
+</div>
+<div class="col-twothird">
+    <p>{{ one_actor['biography'] }}</p>
+</div>
+
+<button id="actor-shows">ACTOR MOVIES</button>
+
+</div>
+
+
+{% endblock %}
