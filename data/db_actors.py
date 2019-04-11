@@ -13,3 +13,14 @@ def get_all_actors_for_one_show(cursor, show_id):
     cursor.execute(sql_str, {'show_id': show_id})
     actors = cursor.fetchall()
     return actors
+
+
+@con.connection_handler
+def get_actor_details(cursor, actor_id):
+    sql_str = """
+    SELECT a.id, a.birthday, a.name, a.death, a.biography FROM actors a
+    WHERE a.id = %(actor_id)s
+    """
+    cursor.execute(sql_str, {'actor_id': actor_id})
+    actor_detail = cursor.fetchone()
+    return actor_detail
