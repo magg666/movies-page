@@ -1,5 +1,6 @@
-from db_connection.data_manager import get_connection_data, establish_connection
 import os
+
+from db_connection.data_manager import get_connection_data, establish_connection
 
 
 def init_db():
