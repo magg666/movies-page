@@ -1,5 +1,5 @@
-from db_connection import data_manager
-from db_connection import db_connect as con
+from data.db_connection import data_manager
+from data.db_connection import db_connect as con
 
 
 @con.connection_handler

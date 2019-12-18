@@ -1,4 +1,4 @@
-from db_connection import db_connect as con
+from data.db_connection import db_connect as con
 
 
 # CREATE
