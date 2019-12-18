@@ -87,3 +87,13 @@ def delete_actor(cursor, actor_id):
     cursor.execute(sql_str, {'actor_id': actor_id})
     deleted_name = cursor.fetchone()
     return deleted_name
+
+
+def get_actor_details(cursor, actor_id):
+    sql_str = """
+    SELECT a.id, a.birthday, a.name, a.death, a.biography FROM actors a
+    WHERE a.id = %(actor_id)s
+    """
+    cursor.execute(sql_str, {'actor_id': actor_id})
+    actor_detail = cursor.fetchone()
+    return actor_detail

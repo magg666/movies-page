@@ -1,10 +1,6 @@
 from data.db_connection import db_connect as con
 
 
-# CREATE
-# READ
-
-
 @con.connection_handler
 def get_shows(cursor, number, sort_by, order):
     sql_str = """
@@ -75,5 +71,3 @@ def count_series(cursor):
     show_amount = cursor.fetchone()
     return show_amount
 
-# UPDATE
-# DELETE
