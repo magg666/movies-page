@@ -25,4 +25,4 @@ MarkupSafe = "==1.1.1"
 Werkzeug = "==0.15.1"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
